@@ -2631,7 +2631,7 @@ td {
 
 .product-image-box {
   width: 100%;
-  aspect-ratio: 1.55;
+  aspect-ratio: 1.7;
   border: 1px solid #e6ebf3;
   border-radius: 8px;
   background: radial-gradient(circle at center, #ffffff 0%, #eef5ff 75%);
@@ -2644,11 +2644,12 @@ td {
 }
 
 .product-image-box img {
-  width: 92%;
-  height: 86%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
   margin: auto;
+  padding: 12px;
 }
 
 .product-discount {
@@ -2873,11 +2874,12 @@ td {
 }
 
 .product-details-image {
-  width: 112px;
-  height: 82px;
+  width: 132px;
+  height: 92px;
   border: 1px solid #e6ebf3;
   border-radius: 8px;
   object-fit: contain;
+  padding: 8px;
   background: #eef5ff;
   flex: 0 0 auto;
 }

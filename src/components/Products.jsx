@@ -274,7 +274,7 @@ function Products({
             >
               <div className="product-image-box">
                 <img
-                  src={product.image}
+                  src={isMockApi ? getFallbackImage(product) : product.image}
                   alt={product.name}
                   onError={(e) => {
                     e.currentTarget.src = getFallbackImage(product);
@@ -354,7 +354,7 @@ function Products({
             <div className="product-details-header">
               <img
                 className="product-details-image"
-                src={selectedProduct.image}
+                src={isMockApi ? getFallbackImage(selectedProduct) : selectedProduct.image}
                 alt={selectedProduct.name}
                 onError={(e) => {
                   e.currentTarget.src = getFallbackImage(selectedProduct);
