@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiBaseUrl } from "../lib/api";
+import { apiBaseUrl, isMockApi } from "../lib/api";
 
 function AuthModal({ mode, setMode, onClose, onAuthSuccess }) {
   const [formData, setFormData] = useState({
@@ -36,6 +36,23 @@ function AuthModal({ mode, setMode, onClose, onAuthSuccess }) {
       : { email: formData.email, password: formData.password };
 
     try {
+      if (isMockApi) {
+        setMessage(isRegister ? "Registration successful. Ab login kar sakte ho." : "Login successful");
+
+        if (isRegister) {
+          setMode("login");
+          return;
+        }
+
+        onAuthSuccess({
+          fullName: formData.email.split("@")[0] || "Demo User",
+          email: formData.email,
+          role: "Employee",
+        });
+        onClose();
+        return;
+      }
+
       const response = await fetch(url, {
         method: "POST",
         headers: {

@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { apiBaseUrl } from "../lib/api";
+import {
+  apiBaseUrl,
+  getMockCategories,
+  getMockProduct,
+  getMockProducts,
+  isMockApi,
+} from "../lib/api";
 
 function formatCurrency(amount) {
   return `Rs ${Number(amount || 0).toLocaleString("en-IN")}`;
@@ -44,6 +50,11 @@ function Products({
   useEffect(() => {
     async function fetchCategories() {
       try {
+        if (isMockApi) {
+          setCategories(getMockCategories());
+          return;
+        }
+
         const res = await fetch(`${apiBaseUrl}/product-categories`);
         const data = await res.json();
 
@@ -68,6 +79,20 @@ function Products({
       });
 
       try {
+        if (isMockApi) {
+          const data = getMockProducts(selectedCategory, activeSearchText);
+
+          setProducts(data);
+          setSelectedProduct((current) => {
+            if (current && data.some((item) => item._id === current._id)) {
+              return current;
+            }
+
+            return data[0] || null;
+          });
+          return;
+        }
+
         const res = await fetch(`${apiBaseUrl}/products?${params.toString()}`);
         const data = await res.json();
 
@@ -102,6 +127,13 @@ function Products({
 
   async function handleViewDetails(product) {
     try {
+      if (isMockApi) {
+        setSelectedProduct(getMockProduct(product._id) || product);
+        setShowDetails(true);
+        setQuoteMessage("");
+        return;
+      }
+
       const res = await fetch(`${apiBaseUrl}/products/${product._id}`);
       const data = await res.json();
 
@@ -121,6 +153,12 @@ function Products({
 
   async function handleQuote(product) {
     try {
+      if (isMockApi) {
+        setQuoteMessage(`${product.name} quote request saved`);
+        alert("Quote request demo mode me save ho gayi");
+        return;
+      }
+
       const res = await fetch(`${apiBaseUrl}/product-quotes`, {
         method: "POST",
         headers: {

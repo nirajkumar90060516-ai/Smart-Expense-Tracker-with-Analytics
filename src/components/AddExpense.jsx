@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiBaseUrl } from "../lib/api";
+import { apiBaseUrl, isMockApi } from "../lib/api";
 
 const ciscoUpiId = "9006091516-2@axl";
 const ciscoCompanyName = "Cisco Systems";
@@ -90,6 +90,7 @@ function AddExpense({ setShowAddExpense, setTransactions }) {
     };
 
     try {
+      if (!isMockApi) {
       const response = await fetch(`${apiBaseUrl}/expenses`, {
         method: "POST",
         headers: {
@@ -103,6 +104,7 @@ function AddExpense({ setShowAddExpense, setTransactions }) {
       if (!response.ok) {
         alert(data.message || "Expense save nahi hua");
         return;
+      }
       }
 
       const frontendExpense = {

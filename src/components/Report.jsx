@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Report.css";
-import { apiBaseUrl } from "../lib/api";
+import { apiBaseUrl, getMockReport, isMockApi } from "../lib/api";
 
 function Report() {
   const [report, setReport] = useState(null);
@@ -10,6 +10,11 @@ function Report() {
   useEffect(() => {
     async function fetchReport() {
       try {
+        if (isMockApi) {
+          setReport(getMockReport());
+          return;
+        }
+
         const res = await axios.get(`${apiBaseUrl}/report/EMP001`);
         setReport(res.data);
       } catch (error) {
