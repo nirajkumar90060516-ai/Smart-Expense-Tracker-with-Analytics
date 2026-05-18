@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: smart-expense-tracker
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm --prefix backend install && npm run build
+    startCommand: npm --prefix backend start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGO_URI
+        sync: false

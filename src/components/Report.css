@@ -1,0 +1,173 @@
+.report-page {
+  background: #fff;
+  padding: 24px;
+  border-radius: 18px;
+  color: #071633;
+}
+
+.report-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #cfd8e6;
+  padding-bottom: 20px;
+  margin-bottom: 18px;
+}
+
+.report-title-box {
+  text-align: right;
+}
+
+.company-box h1,
+.report-title-box h1 {
+  font-size: 30px;
+}
+
+.employee-details-card,
+.report-chart-card,
+.report-table-card {
+  border: 1px solid #dbe5f3;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-top: 15px;
+}
+
+.report-card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.report-stat {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #dbe5f3;
+}
+
+.report-stat span {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+}
+
+.green-card span { background: #16a34a; }
+.red-card span { background: #dc2626; }
+.save-card span { background: #22c55e; }
+.blue-card span { background: #2563eb; }
+.purple-card span { background: #7c3aed; }
+
+.green-card { background: #eefaf1; }
+.red-card { background: #fff1f1; }
+.save-card { background: #f0fff4; }
+.blue-card { background: #eef5ff; }
+.purple-card { background: #f6f1ff; }
+
+.report-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.report-chart-box {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.report-donut {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.report-donut::after {
+  content: "";
+  width: 72px;
+  height: 72px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.category-donut {
+  background: conic-gradient(#2563eb 0 35%, #22c55e 35% 58%, #f97316 58% 76%, #8b5cf6 76% 90%, #eab308 90% 100%);
+}
+
+.payment-donut {
+  background: conic-gradient(#2563eb 0 46%, #22c55e 46% 76%, #f97316 76% 100%);
+}
+
+.report-chart-box ul {
+  flex: 1;
+  list-style: none;
+}
+
+.report-chart-box li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #e5eaf2;
+}
+
+.report-table-card {
+  overflow-x: auto;
+}
+
+.approved {
+  background: #bbf7d0;
+  color: #166534;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .report-card-grid,
+  .employee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .report-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .report-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .report-title-box {
+    text-align: left;
+  }
+
+  .report-card-grid,
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-chart-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
