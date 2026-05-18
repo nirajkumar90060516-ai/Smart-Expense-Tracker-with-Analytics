@@ -68,108 +68,92 @@ const mockExpenses = [
 ];
 
 const categoryProducts = [
-  {
-    category: "Routers",
-    name: "Cisco Enterprise Router",
-    code: "RTR",
-    price: 31200,
-    color: "#2563eb",
-  },
-  {
-    category: "Switches",
-    name: "Cisco Catalyst Switch",
-    code: "SWT",
-    price: 38400,
-    color: "#16a34a",
-  },
-  {
-    category: "Network Hubs",
-    name: "Cisco Network Hub",
-    code: "HUB",
-    price: 45600,
-    color: "#f59e0b",
-  },
-  {
-    category: "Gateways",
-    name: "Cisco Secure Gateway",
-    code: "GTW",
-    price: 52800,
-    color: "#7c3aed",
-  },
-  {
-    category: "Wi-Fi Routers",
-    name: "Cisco Wi-Fi Router",
-    code: "WIFI",
-    price: 60000,
-    color: "#0891b2",
-  },
-  {
-    category: "Wireless Access Points",
-    name: "Cisco Wireless Access Point",
-    code: "AP",
-    price: 67200,
-    color: "#dc2626",
-  },
-  {
-    category: "Wireless Controllers",
-    name: "Cisco Wireless Controller",
-    code: "WLC",
-    price: 74400,
-    color: "#9333ea",
-  },
-  {
-    category: "Firewalls",
-    name: "Cisco Secure Firewall",
-    code: "FW",
-    price: 81600,
-    color: "#ea580c",
-  },
-  {
-    category: "VPN (Virtual Private Network)",
-    name: "Cisco VPN Solution",
-    code: "VPN",
-    price: 88800,
-    color: "#0f766e",
-  },
+  { category: "Routers", name: "Cisco Enterprise Router", code: "RTR", price: 31200, color: "#2563eb" },
+  { category: "Switches", name: "Cisco Catalyst Switch", code: "SWT", price: 38400, color: "#16a34a" },
+  { category: "Network Hubs", name: "Cisco Network Hub", code: "HUB", price: 45600, color: "#f59e0b" },
+  { category: "Gateways", name: "Cisco Secure Gateway", code: "GTW", price: 52800, color: "#7c3aed" },
+  { category: "Wi-Fi Routers", name: "Cisco Wi-Fi Router", code: "WIFI", price: 60000, color: "#0891b2" },
+  { category: "Wireless Access Points", name: "Cisco Wireless Access Point", code: "AP", price: 67200, color: "#dc2626" },
+  { category: "Wireless Controllers", name: "Cisco Wireless Controller", code: "WLC", price: 74400, color: "#9333ea" },
+  { category: "Firewalls", name: "Cisco Secure Firewall", code: "FW", price: 81600, color: "#ea580c" },
+  { category: "VPN (Virtual Private Network)", name: "Cisco VPN Solution", code: "VPN", price: 88800, color: "#0f766e" },
+];
+
+const productModels = [
+  "100",
+  "120",
+  "150",
+  "180",
+  "200",
+  "220",
+  "250",
+  "300",
+  "350",
+  "420",
+  "450",
+  "500",
+  "550",
+  "600",
+  "650",
 ];
 
 function getProductImage(product) {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="520" height="340" viewBox="0 0 520 340">
-      <rect width="520" height="340" rx="26" fill="#eef5ff"/>
-      <rect x="118" y="116" width="284" height="92" rx="18" fill="#092f69"/>
-      <rect x="150" y="144" width="118" height="11" rx="5.5" fill="#55d3ff"/>
-      <rect x="150" y="169" width="166" height="11" rx="5.5" fill="#8fb4ff"/>
-      <circle cx="344" cy="162" r="13" fill="#22c55e"/>
-      <circle cx="374" cy="162" r="13" fill="#f59e0b"/>
-      <rect x="205" y="220" width="110" height="32" rx="16" fill="${product.color}"/>
-      <text x="260" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#ffffff">${product.code}</text>
-      <text x="260" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#0b2f6b">${product.category}</text>
+      <defs>
+        <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#f8fbff"/>
+          <stop offset="100%" stop-color="#dfeeff"/>
+        </linearGradient>
+      </defs>
+      <rect width="520" height="340" rx="26" fill="url(#bg)"/>
+      <rect x="90" y="94" width="340" height="116" rx="20" fill="#092f69"/>
+      <rect x="122" y="126" width="${116 + (product.productId % 5) * 12}" height="12" rx="6" fill="#55d3ff"/>
+      <rect x="122" y="156" width="${154 + (product.productId % 4) * 18}" height="12" rx="6" fill="#8fb4ff"/>
+      <rect x="122" y="184" width="92" height="8" rx="4" fill="#c7d2fe"/>
+      <circle cx="356" cy="154" r="14" fill="#22c55e"/>
+      <circle cx="390" cy="154" r="14" fill="#f59e0b"/>
+      <rect x="205" y="224" width="110" height="32" rx="16" fill="${product.color}"/>
+      <text x="260" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#ffffff">${product.modelCode}</text>
+      <text x="260" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#0b2f6b">${product.category}</text>
     </svg>
   `;
 
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-const mockProducts = categoryProducts.map((product, index) => ({
-  _id: `product-${index + 1}`,
-  productId: index + 1,
-  category: product.category,
-  name: product.name,
-  code: `CISCO-${product.code}-${String(index + 1).padStart(3, "0")}`,
-  status: index === 7 ? "Limited" : "Available",
-  price: product.price,
-  oldPrice: Math.round(product.price * 1.18),
-  rating: Number((4.2 + (index % 5) * 0.1).toFixed(1)),
-  reviews: 65 + index * 9,
-  stock: 6 + index,
-  image: getProductImage(product),
-  performance: "Enterprise grade performance",
-  useCase: "Office networks, secure branches and managed connectivity",
-  warranty: "1 Year",
-  delivery: "3-5 days",
-  support: "24x7",
-}));
+const mockProducts = categoryProducts.flatMap((baseProduct, categoryIndex) =>
+  productModels.map((model, modelIndex) => {
+    const productId = categoryIndex * productModels.length + modelIndex + 1;
+    const modelCode = `${baseProduct.code}-${model}`;
+    const price = baseProduct.price + modelIndex * 4200 + categoryIndex * 900;
+    const product = {
+      _id: `product-${productId}`,
+      productId,
+      category: baseProduct.category,
+      name: `${baseProduct.name} ${model}`,
+      modelCode,
+      code: `CISCO-${modelCode}-${String(productId).padStart(3, "0")}`,
+      status: modelIndex % 11 === 0 ? "Limited" : "Available",
+      price,
+      oldPrice: Math.round(price * 1.18),
+      rating: Number((4.1 + ((productId + modelIndex) % 8) * 0.1).toFixed(1)),
+      reviews: 65 + productId * 5,
+      stock: 6 + ((productId * 2) % 34),
+      color: baseProduct.color,
+      performance: "Enterprise grade performance",
+      useCase: "Office networks, secure branches and managed connectivity",
+      warranty: "1 Year",
+      delivery: "3-5 days",
+      support: "24x7",
+    };
+
+    return {
+      ...product,
+      image: getProductImage(product),
+    };
+  })
+);
 
 export function getMockCategories() {
   return ["All Products", ...new Set(mockProducts.map((item) => item.category))];
