@@ -16,6 +16,10 @@ function getDiscount(price, oldPrice) {
 }
 
 function getFallbackImage(product) {
+  const label = (product.code || product.category || "PRD")
+    .replace("CISCO-", "")
+    .split("-")[0];
+
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="420" height="280" viewBox="0 0 420 280">
       <rect width="420" height="280" rx="20" fill="#eef5ff"/>
@@ -24,6 +28,7 @@ function getFallbackImage(product) {
       <rect x="92" y="146" width="172" height="12" rx="6" fill="#7ea6ff"/>
       <circle cx="292" cy="140" r="12" fill="#22c55e"/>
       <circle cx="324" cy="140" r="12" fill="#f59e0b"/>
+      <text x="210" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#2563eb">${label}</text>
       <text x="210" y="228" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#2563eb">${product.category}</text>
     </svg>
   `;
@@ -274,7 +279,7 @@ function Products({
             >
               <div className="product-image-box">
                 <img
-                  src={isMockApi ? getFallbackImage(product) : product.image}
+                  src={product.image}
                   alt={product.name}
                   onError={(e) => {
                     e.currentTarget.src = getFallbackImage(product);
@@ -354,7 +359,7 @@ function Products({
             <div className="product-details-header">
               <img
                 className="product-details-image"
-                src={isMockApi ? getFallbackImage(selectedProduct) : selectedProduct.image}
+                src={selectedProduct.image}
                 alt={selectedProduct.name}
                 onError={(e) => {
                   e.currentTarget.src = getFallbackImage(selectedProduct);

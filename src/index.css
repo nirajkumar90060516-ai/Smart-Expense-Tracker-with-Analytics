@@ -1244,31 +1244,13 @@ td {
 }
 .submenu-list {
   list-style: none;
-  padding-left: 10px;
+  padding-left: 25px;
   margin: 0;
 }
 .submenu-item {
-  min-height: 58px;
   padding: 8px 10px;
   font-size: 14px;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: 46px 1fr;
-  gap: 10px;
-  align-items: center;
-}
-
-.submenu-item img {
-  width: 44px;
-  height: 34px;
-  border-radius: 8px;
-  object-fit: contain;
-  background: #eff6ff;
-  padding: 3px;
-}
-
-.submenu-item span {
-  line-height: 1.18;
 }
 
 .active-submenu-item {
